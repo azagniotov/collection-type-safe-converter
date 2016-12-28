@@ -13,11 +13,11 @@ import java.util.Set;
 
 /**
  * A set of utility methods return given raw non-generic collections as
- * generically typesafe collections.
+ * generically type-safe collections.
  * <p>
  * If a given raw collection contains an element of the wrong type, it will
  * result in a {@link ClassCastException}. Assuming a collection contains no
- * incorrectly typed elements prior to the time a generic typesafe collection
+ * incorrectly typed elements prior to the time a generic type-safe collection
  * is generated, it is <i>guaranteed</i> that the generated collection cannot
  * contain an incorrectly typed element, hence eliminates heap pollution.
  * <p>
@@ -31,11 +31,11 @@ import java.util.Set;
  * inserting an element of the wrong type.
  * <p>
  * Since {@code null} is considered to be a value of any reference
- * type, a {@link IllegalArgumentException} will be thrown if a given
+ * type, a {@link IllegalArgumentException} will be thrown during cast if a given
  * raw collection contains null elements.
  * <p>
- * Since the generating a new generically typesafe collection has a {@code O(N)}
- * running time, execute caution before deciding to convert large collections.
+ * To generate a new generic type-safe collection take {@code O(N)} running time,
+ * therefore please execute caution before deciding to convert large collections.
  */
 public final class TypeSafeConverter {
 
@@ -44,16 +44,16 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * Generates a typesafe {@link List} from a given raw non-generic {@code listObject} {@link Object}.
+     * Generates a type-safe {@link List} from a given raw non-generic {@code listObject} {@link Object}.
      *
-     * @param listObject     the list object for which a new typesafe {@link List} is to be returned
+     * @param listObject     the list object for which a new type-safe {@link List} is to be returned
      * @param valueClassType the type of element that {@code listObject} is permitted to hold
      * @param listImpl       the implementation of the returned {@code listImpl}
      * @param <T>            the class of the objects in the {@code listImpl}
      * @param <L>            the class of the returned {@link List}
-     * @return a new typesafe {@link List}, which is a shallow copy of the given raw non-generic {@code listObject}
+     * @return a new type-safe {@link List}, which is a shallow copy of the given raw non-generic {@code listObject}
      * @throws ClassCastException       if the class of an element found in the
-     *                                  given raw collection prevents it from being added to generated typesafe collection.
+     *                                  given raw collection prevents it from being added to generated type-safe collection.
      * @throws IllegalArgumentException if the given {@code listImpl} is {@code null}.
      */
     public static <T, L extends List<T>> L asCheckedList(final Object listObject, final Class<T> valueClassType, final L listImpl) {
@@ -68,16 +68,16 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * Generates a typesafe {@link Collection} from a given raw non-generic {@code collectionObject} {@link Object}.
+     * Generates a type-safe {@link Collection} from a given raw non-generic {@code collectionObject} {@link Object}.
      *
-     * @param collectionObject the collection object for which a new typesafe {@link Collection} is to be returned
+     * @param collectionObject the collection object for which a new type-safe {@link Collection} is to be returned
      * @param valueClassType   the type of element that {@code collectionObject} is permitted to hold
      * @param collectionImpl   the implementation of the returned {@code collectionImpl}
      * @param <T>              the class of the objects in the {@code collectionImpl}
      * @param <C>              the class of the returned {@link Collection}
-     * @return a new typesafe {@link Collection}, which is a shallow copy of the given raw non-generic {@code collectionObject}
+     * @return a new type-safe {@link Collection}, which is a shallow copy of the given raw non-generic {@code collectionObject}
      * @throws ClassCastException       if the class of an element found in the
-     *                                  given raw collection prevents it from being added to generated typesafe collection.
+     *                                  given raw collection prevents it from being added to generated type-safe collection.
      * @throws IllegalArgumentException if the given {@code collectionImpl} is {@code null}.
      */
     public static <T, C extends Collection<T>> C asCheckedCollection(final Object collectionObject, final Class<T> valueClassType, final C collectionImpl) {
@@ -92,16 +92,16 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * Generates a typesafe {@link Set} from a given raw non-generic {@code setObject} {@link Object}.
+     * Generates a type-safe {@link Set} from a given raw non-generic {@code setObject} {@link Object}.
      *
-     * @param setObject      the set object for which a new typesafe {@link Set} is to be returned
+     * @param setObject      the set object for which a new type-safe {@link Set} is to be returned
      * @param valueClassType the type of element that {@code setObject} is permitted to hold
      * @param setImpl        the implementation of the returned {@code setImpl}
      * @param <T>            the class of the objects in the {@code setImpl}
      * @param <S>            the class of the returned {@link Set}
-     * @return a new typesafe {@link Set}, which is a shallow copy of the given raw non-generic {@code setObject}
+     * @return a new type-safe {@link Set}, which is a shallow copy of the given raw non-generic {@code setObject}
      * @throws ClassCastException       if the class of an element found in the
-     *                                  given raw collection prevents it from being added to generated typesafe collection.
+     *                                  given raw collection prevents it from being added to generated type-safe collection.
      * @throws IllegalArgumentException if the given {@code setImpl} is {@code null}.
      */
     public static <T, S extends Set<T>> S asCheckedSet(final Object setObject, final Class<T> valueClassType, final S setImpl) {
@@ -116,17 +116,17 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * Generates a typesafe {@link Map} from a given raw non-generic {@code mapObject} {@link Object}.
+     * Generates a type-safe {@link Map} from a given raw non-generic {@code mapObject} {@link Object}.
      *
-     * @param mapObject      the map object for which a new typesafe {@link Map} is to be returned
+     * @param mapObject      the map object for which a new type-safe {@link Map} is to be returned
      * @param valueClassType the type of element that {@code mapObject} is permitted to hold
      * @param mapImpl        the implementation of the returned {@code mapImpl}
      * @param <K>            the class of the key objects in the {@code mapImpl}
      * @param <V>            the class of the value objects in the {@code mapImpl}
      * @param <M>            the class of the returned {@link Map}
-     * @return a new typesafe {@link Map}, which is a shallow copy of the given raw non-generic {@code mapObject}
+     * @return a new type-safe {@link Map}, which is a shallow copy of the given raw non-generic {@code mapObject}
      * @throws ClassCastException       if the class of an element found in the
-     *                                  given raw collection prevents it from being added to generated typesafe collection.
+     *                                  given raw collection prevents it from being added to generated type-safe collection.
      * @throws IllegalArgumentException if the given {@code mapImpl} is {@code null}.
      */
     public static <K, V, M extends Map<K, V>> M asCheckedMap(final Object mapObject, final Class<K> keyClassType, final Class<V> valueClassType, final M mapImpl) {
