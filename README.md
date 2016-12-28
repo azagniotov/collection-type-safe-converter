@@ -24,9 +24,9 @@ dependencies {
 
 ### Usage
 
-Check the `TypeSafeConverter` class for the available APIs.
+Check the [TypeSafeConverter](src/main/java/io/github/azagniotov/generics/TypeSafeConverter.java) class for the available APIs.
 
-
+#### Some examples
 ```
 final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedHashMap(rawMapObject, String.class, SomeType.class);
 final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedMap(rawMapObject, String.class, SomeType.class, new LinkedHashMap<>());
