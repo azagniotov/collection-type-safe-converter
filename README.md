@@ -1,5 +1,7 @@
-# Type-safe Generic Collections
-Helper library that generates type-safe generic shallow copies from raw non-generic collections
+# Collection Type-safe Converter
+Helper library that generates type-safe generic shallow copies from: 
+* Raw non-generic collection objects
+* Unknown type generic collections
 
 ## Summary
  1. The library guarantees type safety of the values, which eliminates heap pollution
@@ -22,13 +24,13 @@ dependencies {
 
 ### Usage
 
-Check the `TypeSafetyHelper` class for the available APIs.
+Check the `TypeSafeConverter` class for the available APIs.
 
 
 ```
-final Map<String, SomeType> checkedMap = TypeSafetyHelper.asCheckedHashMap(rawMapObject, String.class, SomeType.class);
-final Map<String, SomeType> checkedMap = TypeSafetyHelper.asCheckedMap(rawMapObject, String.class, SomeType.class, new LinkedHashMap<>());
-final Set<SomeType> checkedSet = TypeSafetyHelper.asCheckedLinkedHashSet(rawSetObject, SomeType.class);
+final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedHashMap(rawMapObject, String.class, SomeType.class);
+final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedMap(rawMapObject, String.class, SomeType.class, new LinkedHashMap<>());
+final Set<SomeType> checkedSet = TypeSafeConverter.asCheckedLinkedHashSet(rawSetObject, SomeType.class);
 ```
 
 ### License
