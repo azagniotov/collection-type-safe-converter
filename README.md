@@ -31,6 +31,7 @@ Check the [TypeSafeConverter](src/main/java/io/github/azagniotov/generics/TypeSa
 final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedHashMap(rawMapObject, String.class, SomeType.class);
 final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedMap(rawMapObject, String.class, SomeType.class, new LinkedHashMap<>());
 final Set<SomeType> checkedSet = TypeSafeConverter.asCheckedLinkedHashSet(rawSetObject, SomeType.class);
+final SomeType someType = TypeSafeConverter.as(SomeType.class, objectInstance)
 ```
 
 ### License
