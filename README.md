@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies { 
-    compile("io.github.azagniotov:collection-type-safe-converter:1.0.0")
+    compile("io.github.azagniotov:collection-type-safe-converter:1.0.1")
 }
 ```
 
@@ -31,6 +31,8 @@ Check the [TypeSafeConverter](src/main/java/io/github/azagniotov/generics/TypeSa
 final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedHashMap(rawMapObject, String.class, SomeType.class);
 final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedMap(rawMapObject, String.class, SomeType.class, new LinkedHashMap<>());
 final Set<SomeType> checkedSet = TypeSafeConverter.asCheckedLinkedHashSet(rawSetObject, SomeType.class);
+final Set<SomeType> checkedSet = TypeSafeConverter.asCheckedCollection(rawSetObject, SomeType.class, new HashSet<>());
+final Iterable<AnotherType> checkedSet = TypeSafeConverter.asCheckedIterable(rawSetObject, AnotherType.class);
 final SomeType someType = TypeSafeConverter.as(SomeType.class, objectInstance)
 ```
 

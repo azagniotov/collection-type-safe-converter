@@ -12,8 +12,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A set of utility methods return given raw non-generic collections as
- * generically type-safe collections.
+ * A set of utility methods that create from provided raw non-generic
+ * (or generic with unknown types) collections generic type-safe collection
+ * shallow copies.
  * <p>
  * If a given raw collection contains an element of the wrong type, it will
  * result in a {@link ClassCastException}. Assuming a collection contains no
@@ -31,11 +32,12 @@ import java.util.Set;
  * inserting an element of the wrong type.
  * <p>
  * Since {@code null} is considered to be a value of any reference
- * type, a {@link IllegalArgumentException} will be thrown during cast if a given
- * raw collection contains null elements.
+ * type, a {@link IllegalArgumentException} will be thrown during cast if a
+ * given raw collection contains null elements.
  * <p>
- * To generate a new generic type-safe collection take {@code O(N)} running time,
- * therefore please execute caution before deciding to convert large collections.
+ * To create from a provided collection a shallow copy of generic type-safe
+ * collection takes {@code O(N)} running time, therefore please execute caution
+ * before deciding to convert large collections.
  */
 public final class TypeSafeConverter {
 
@@ -44,33 +46,9 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * Generates a type-safe {@link List} from a given raw non-generic {@code listObject} {@link Object}.
+     * Generates a type-safe {@link Collection} shallow copy from provided {@code collectionObject} {@link Object}.
      *
-     * @param listObject     the list object for which a new type-safe {@link List} is to be returned
-     * @param valueClassType the type of element that {@code listObject} is permitted to hold
-     * @param listImpl       the implementation of the returned {@code listImpl}
-     * @param <T>            the class of the objects in the {@code listImpl}
-     * @param <L>            the class of the returned {@link List}
-     * @return a new type-safe {@link List}, which is a shallow copy of the given raw non-generic {@code listObject}
-     * @throws ClassCastException       if the class of an element found in the
-     *                                  given raw collection prevents it from being added to generated type-safe collection.
-     * @throws IllegalArgumentException if the given {@code listImpl} is {@code null}.
-     */
-    public static <T, L extends List<T>> L asCheckedList(final Object listObject, final Class<T> valueClassType, final L listImpl) {
-        if (listObject == null) {
-            throw new IllegalArgumentException("Collection object instance is null");
-        }
-        final List<?> rawList = (List) listObject;
-        for (int idx = 0; idx < rawList.size(); idx++) {
-            listImpl.add(idx, as(valueClassType, rawList.get(idx)));
-        }
-        return listImpl;
-    }
-
-    /**
-     * Generates a type-safe {@link Collection} from a given raw non-generic {@code collectionObject} {@link Object}.
-     *
-     * @param collectionObject the collection object for which a new type-safe {@link Collection} is to be returned
+     * @param collectionObject the raw collection from which a new type-safe {@link Collection} shallow copy is to be made
      * @param valueClassType   the type of element that {@code collectionObject} is permitted to hold
      * @param collectionImpl   the implementation of the returned {@code collectionImpl}
      * @param <T>              the class of the objects in the {@code collectionImpl}
@@ -92,33 +70,9 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * Generates a type-safe {@link Set} from a given raw non-generic {@code setObject} {@link Object}.
+     * Generates a type-safe {@link Map} shallow copy from a given raw non-generic {@code mapObject} {@link Object}.
      *
-     * @param setObject      the set object for which a new type-safe {@link Set} is to be returned
-     * @param valueClassType the type of element that {@code setObject} is permitted to hold
-     * @param setImpl        the implementation of the returned {@code setImpl}
-     * @param <T>            the class of the objects in the {@code setImpl}
-     * @param <S>            the class of the returned {@link Set}
-     * @return a new type-safe {@link Set}, which is a shallow copy of the given raw non-generic {@code setObject}
-     * @throws ClassCastException       if the class of an element found in the
-     *                                  given raw collection prevents it from being added to generated type-safe collection.
-     * @throws IllegalArgumentException if the given {@code setImpl} is {@code null}.
-     */
-    public static <T, S extends Set<T>> S asCheckedSet(final Object setObject, final Class<T> valueClassType, final S setImpl) {
-        if (setObject == null) {
-            throw new IllegalArgumentException("Collection object instance is null");
-        }
-        final Set<?> rawSet = (Set) setObject;
-        for (final Object rawSetValue : rawSet) {
-            setImpl.add(as(valueClassType, rawSetValue));
-        }
-        return setImpl;
-    }
-
-    /**
-     * Generates a type-safe {@link Map} from a given raw non-generic {@code mapObject} {@link Object}.
-     *
-     * @param mapObject      the map object for which a new type-safe {@link Map} is to be returned
+     * @param mapObject      the map object from which a new type-safe {@link Map} shallow copy is to be made
      * @param valueClassType the type of element that {@code mapObject} is permitted to hold
      * @param mapImpl        the implementation of the returned {@code mapImpl}
      * @param <K>            the class of the key objects in the {@code mapImpl}
@@ -131,7 +85,7 @@ public final class TypeSafeConverter {
      */
     public static <K, V, M extends Map<K, V>> M asCheckedMap(final Object mapObject, final Class<K> keyClassType, final Class<V> valueClassType, final M mapImpl) {
         if (mapObject == null) {
-            throw new IllegalArgumentException("Collection object instance is null");
+            throw new IllegalArgumentException("Map object instance is null");
         }
         final Map<?, ?> rawMap = (Map) mapObject;
         for (final Map.Entry<?, ?> rawEntry : rawMap.entrySet()) {
@@ -165,31 +119,38 @@ public final class TypeSafeConverter {
     }
 
     /**
-     * @see #asCheckedList(Object, Class, List)
+     * @see #asCheckedCollection(Object, Class, Collection)
+     */
+    public static <T> Iterable<T> asCheckedIterable(final Object iterableObject, final Class<T> valueClassType) {
+        return asCheckedCollection(iterableObject, valueClassType, new ArrayList<>());
+    }
+
+    /**
+     * @see #asCheckedCollection(Object, Class, Collection)
      */
     public static <T> List<T> asCheckedArrayList(final Object listObject, final Class<T> valueClassType) {
-        return asCheckedList(listObject, valueClassType, new ArrayList<>());
+        return asCheckedCollection(listObject, valueClassType, new ArrayList<>());
     }
 
     /**
-     * @see #asCheckedList(Object, Class, List)
+     * @see #asCheckedCollection(Object, Class, Collection)
      */
     public static <T> List<T> asCheckedLinkedList(final Object listObject, final Class<T> valueClassType) {
-        return asCheckedList(listObject, valueClassType, new LinkedList<>());
+        return asCheckedCollection(listObject, valueClassType, new LinkedList<>());
     }
 
     /**
-     * @see #asCheckedSet(Object, Class, Set)
+     * @see #asCheckedCollection(Object, Class, Collection)
      */
     public static <T> Set<T> asCheckedHashSet(final Object setObject, final Class<T> valueClassType) {
-        return asCheckedSet(setObject, valueClassType, new HashSet<>());
+        return asCheckedCollection(setObject, valueClassType, new HashSet<>());
     }
 
     /**
-     * @see #asCheckedSet(Object, Class, Set)
+     * @see #asCheckedCollection(Object, Class, Collection)
      */
     public static <T> Set<T> asCheckedLinkedHashSet(final Object setObject, final Class<T> valueClassType) {
-        return asCheckedSet(setObject, valueClassType, new LinkedHashSet<>());
+        return asCheckedCollection(setObject, valueClassType, new LinkedHashSet<>());
     }
 
     /**

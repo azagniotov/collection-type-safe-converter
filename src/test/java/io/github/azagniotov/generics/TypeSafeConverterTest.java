@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static io.github.azagniotov.generics.TypeSafeConverter.asCheckedCollection;
+import static io.github.azagniotov.generics.TypeSafeConverter.asCheckedIterable;
+import static io.github.azagniotov.generics.TypeSafeConverter.asCheckedMap;
+
 
 @SuppressWarnings("unchecked")
 public class TypeSafeConverterTest {
@@ -67,7 +71,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousList.add(new HashSet(Collections.singletonList(INSTANCE_SOME_TYPE)));
         rawHomogeneousList.add(new HashSet(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        final List<HashSet> checkedList = TypeSafeConverter.asCheckedList(rawHomogeneousList, HashSet.class, new ArrayList<>());
+        final List<HashSet> checkedList = asCheckedCollection(rawHomogeneousList, HashSet.class, new ArrayList<>());
     }
 
     @Test
@@ -79,7 +83,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousList.add(null);
         rawHomogeneousList.add(new HashSet(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        TypeSafeConverter.asCheckedList(rawHomogeneousList, HashSet.class, new ArrayList<>());
+        asCheckedCollection(rawHomogeneousList, HashSet.class, new ArrayList<>());
     }
 
     @Test
@@ -90,7 +94,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousList.add(new HashSet<>(Collections.singletonList(INSTANCE_SOME_TYPE)));
         rawHomogeneousList.add(new HashSet<>(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        final List<SomeType> checkedList = TypeSafeConverter.asCheckedList(rawHomogeneousList, SomeType.class, new ArrayList<>());
+        final List<SomeType> checkedList = asCheckedCollection(rawHomogeneousList, SomeType.class, new ArrayList<>());
     }
 
     @Test
@@ -101,7 +105,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousList.add(INSTANCE_SOME_TYPE);
         rawHomogeneousList.add(INSTANCE_ANOTHER_TYPE);
 
-        final List<SomeType> checkedList = TypeSafeConverter.asCheckedList(rawHomogeneousList, SomeType.class, new ArrayList<>());
+        final List<SomeType> checkedList = asCheckedCollection(rawHomogeneousList, SomeType.class, new ArrayList<>());
     }
 
     @Test
@@ -110,7 +114,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousSet.add(new HashSet(Collections.singletonList(INSTANCE_SOME_TYPE)));
         rawHomogeneousSet.add(new HashSet(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        final Set<HashSet> checkedSet = TypeSafeConverter.asCheckedSet(rawHomogeneousSet, HashSet.class, new HashSet<>());
+        final Set<HashSet> checkedSet = asCheckedCollection(rawHomogeneousSet, HashSet.class, new HashSet<>());
     }
 
     @Test
@@ -122,7 +126,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousSet.add(null);
         rawHomogeneousSet.add(new HashSet(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        TypeSafeConverter.asCheckedSet(rawHomogeneousSet, HashSet.class, new HashSet<>());
+        asCheckedCollection(rawHomogeneousSet, HashSet.class, new HashSet<>());
     }
 
     @Test
@@ -133,7 +137,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousSet.add(INSTANCE_SOME_TYPE);
         rawHomogeneousSet.add(INSTANCE_SOME_TYPE);
 
-        final Set<AnotherType> checkedSet = TypeSafeConverter.asCheckedSet(rawHomogeneousSet, AnotherType.class, new HashSet<>());
+        final Iterable<AnotherType> checkedSet = asCheckedIterable(rawHomogeneousSet, AnotherType.class);
     }
 
     @Test
@@ -142,7 +146,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousMap.put(INSTANCE_SOME_TYPE.getValue(), new HashSet<>(Collections.singletonList(INSTANCE_SOME_TYPE)));
         rawHomogeneousMap.put(INSTANCE_SOME_TYPE.getValue(), new HashSet<>(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        final Map<String, HashSet> checkedMap = TypeSafeConverter.asCheckedMap(rawHomogeneousMap, String.class, HashSet.class, new LinkedHashMap<>());
+        final Map<String, HashSet> checkedMap = asCheckedMap(rawHomogeneousMap, String.class, HashSet.class, new LinkedHashMap<>());
     }
 
     @Test
@@ -153,7 +157,7 @@ public class TypeSafeConverterTest {
         rawHomogeneousMap.put(INSTANCE_SOME_TYPE.getValue(), new HashSet<>(Collections.singletonList(INSTANCE_SOME_TYPE)));
         rawHomogeneousMap.put(INSTANCE_SOME_TYPE.getValue(), new HashSet<>(Collections.singletonList(INSTANCE_SOME_TYPE)));
 
-        final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedMap(rawHomogeneousMap, String.class, SomeType.class, new LinkedHashMap<>());
+        final Map<String, SomeType> checkedMap = asCheckedMap(rawHomogeneousMap, String.class, SomeType.class, new LinkedHashMap<>());
     }
 
     @Test
@@ -164,6 +168,6 @@ public class TypeSafeConverterTest {
         rawHeterogeneousMap.put(INSTANCE_SOME_TYPE.getValue(), INSTANCE_SOME_TYPE);
         rawHeterogeneousMap.put(INSTANCE_ANOTHER_TYPE.getValue(), INSTANCE_ANOTHER_TYPE);
 
-        final Map<String, SomeType> checkedMap = TypeSafeConverter.asCheckedMap(rawHeterogeneousMap, String.class, SomeType.class, new LinkedHashMap<>());
+        final Map<String, SomeType> checkedMap = asCheckedMap(rawHeterogeneousMap, String.class, SomeType.class, new LinkedHashMap<>());
     }
 }
