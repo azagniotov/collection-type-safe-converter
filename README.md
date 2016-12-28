@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies { 
-    compile("io.github.azagniotov:type-safe-generic-collections:1.0.0")
+    compile("io.github.azagniotov:collection-type-safe-converter:1.0.0")
 }
 ```
 
