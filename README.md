@@ -1,7 +1,7 @@
 # Collection Type-safe Converter
 Helper library that generates type-safe generic shallow copies from: 
-* Raw non-generic collection objects
-* Unknown type generic collections
+* Raw non-generic collections; and
+* Generic collections of unknown types
 
 ## Summary
  1. The library guarantees type safety of the values, which eliminates heap pollution
