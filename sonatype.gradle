@@ -1,0 +1,50 @@
+apply plugin: 'com.bmuschko.nexus'
+
+extraArchive {
+    sources = true
+    tests = false
+    javadoc = true
+}
+
+modifyPom {
+    project {
+        name 'collection-type-safe-converter'
+        description 'Helper library that generates type-safe generic shallow copies from raw non-generic collection objects and unknown type generic collections'
+        url 'https://github.com/azagniotov/collection-type-safe-converter'
+        inceptionYear '2016'
+        packaging 'jar'
+
+        groupId "io.github.azagniotov"
+        artifactId "collection-type-safe-converter"
+        version "$version"
+
+        scm {
+            url 'scm:git@github.com:azagniotov/collection-type-safe-converter.git'
+            connection 'scm:git@github.com:azagniotov/collection-type-safe-converter.git'
+            developerConnection 'scm:git@github.com:azagniotov/collection-type-safe-converter.git'
+        }
+
+        licenses {
+            license {
+                name 'MIT'
+                url 'https://opensource.org/licenses/MIT'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'azagniotov'
+                name 'Alexander Zagniotov'
+                email 'azagniotov@gmail.com'
+            }
+        }
+    }
+}
+
+nexus {
+    sign = true
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+}
+

@@ -1,12 +1,47 @@
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
+*.log
+*.swp
+.gradle/*
+target/*
+main/target/*
+builders/build/*
+builders/target/*
+unit/build/*
+unit/target/*
+integration/build/*
+integration/target/*
+functional/build/*
+functional/target/*
+main/.idea/*
+unit/.idea/*
+integration/.idea/*
+functional/.idea/*
+main/main.iml
+builders/builders.iml
+unit/unit.iml
+integration/integration.iml
+functional/functional.iml
+.classpath
+builders/.classpath
+functional/.classpath
+integration/.classpath
+main/.classpath
+unit/.classpath
+build/*
+out/*
+.idea/*
+.DS_Store
+Thumbs.db
 *.jar
 *.war
 *.ear
+.classpath 
+.project
+.settings
+stubby4j.iml
+stubby4j.ipr
+stubby4j.iws
+*.iml
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
